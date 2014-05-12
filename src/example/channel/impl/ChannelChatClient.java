@@ -101,7 +101,13 @@ public class ChannelChatClient extends UnicastRemoteObject implements ChatClient
 	 */
 	@Override
 	public void sendMessage(String text) throws RemoteException {
-		Message message = new Message(name, channel, text);
+		String textWithChannel = new StringBuilder()
+			.append("[")
+			.append(channel)
+			.append("]:")
+			.append(text)
+			.toString();
+		Message message = new Message(name, channel, textWithChannel);
 		server.send(message);
 	}
 	
@@ -132,8 +138,8 @@ public class ChannelChatClient extends UnicastRemoteObject implements ChatClient
 			while(! (message = getMessageFromStdIn("mensaje>")).equals("quit") ){
 				client.sendMessage(message);
 			}
-			System.out.println("bye!");
 			client.disconnect();
+			client = null;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

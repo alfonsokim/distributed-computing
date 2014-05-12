@@ -148,6 +148,7 @@ public class TopicChatClient extends UnicastRemoteObject implements TopicClient 
 				}
 			}
 			client.disconnect();
+			client = null;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
