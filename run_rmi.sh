@@ -1,2 +1,0 @@
-export CLASSPATH=./bin
-rmiregistry
